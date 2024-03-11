@@ -48,7 +48,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.example.chartgptservice.ChartgptServiceApplication</mainClass>
+                    <mainClass>com.example.demo1.Demo1Application</mainClass>
                     <!--					<skip>true</skip>-->
                 </configuration>
                 <executions>
