@@ -15,7 +15,6 @@ jobs:
           distribution: "adopt"
           cache: maven
       - run: |
-          cd chartgpt-service/
           mvn clean package -DskipTests --file pom.xml
           ls -l
           ls -l target
