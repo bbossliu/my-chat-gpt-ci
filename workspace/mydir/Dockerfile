@@ -18,4 +18,4 @@ COPY --from=maven /home/app/target/chartgpt-service.jar /usr/app/chartgpt-servic
 EXPOSE 8082
 
 # 运行Java应用
-CMD ["java", "-jar", "/usr/app/your-app.jar"]
+CMD ["java", "-jar", "/usr/app/chartgpt-service.jar"]
