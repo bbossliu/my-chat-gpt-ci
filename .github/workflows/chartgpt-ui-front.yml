@@ -32,6 +32,8 @@ jobs:
         id: build_image
         #        run: docker push myapp:${{ github.sha }}
         run: |
-          echo "::set-output name=image_id::$(docker images --filter=reference='chartgpt-ui-docker:${{ github.sha }}' --format='{{.ID}}')"
+#          echo "::set-output name=image_id::$(docker images --filter=reference='chartgpt-ui-docker:${{ github.sha }}' --format='{{.ID}}')"
+          echo "image_id=$(docker images --filter=reference='chartgpt-ui-docker:${{ github.sha }}' --format='{{.ID}}')" >> $GITHUB_OUTPUT
           docker tag ${{ steps.build_image.outputs.image_id }} registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
           docker push registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
+
