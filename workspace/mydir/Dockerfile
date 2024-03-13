@@ -15,7 +15,7 @@ WORKDIR /home/app
 COPY --from=maven /home/app/target/chartgpt-service.jar /usr/app/chartgpt-service.jar
 
 # 暴露容器内的端口号
-EXPOSE 8082
+EXPOSE 8080
 
 # 运行Java应用
 CMD ["java", "-jar", "/usr/app/chartgpt-service.jar"]
