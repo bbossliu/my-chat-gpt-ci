@@ -2,7 +2,6 @@ name: chartgpt-ui-docker CI
 
 # 在master分支发生push事件时触发。
 on:
-  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
