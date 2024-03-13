@@ -16,6 +16,10 @@ on:
 #    shell: bash
 #    working-directory: chartgpt-ui-docker
 
+env:
+  MY_VAR: registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web
+  DOCKER_CONTAINER_NAME: chartgpt-ui-docker
+
 jobs:
   build: # 自定义名称
     runs-on: ubuntu-latest # 运行在虚拟机环境ubuntu-latest
@@ -23,13 +27,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
+        run: docker build . --file Dockerfile --tag $MY_VAR:${{ github.sha }}
 
       - name: Log in to AliYun
         run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-beijing.aliyuncs.com # 登录阿里云镜像仓库
 
       - name: Push the Docker image
-        run: docker push registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
+        run: docker push $MY_VAR:${{ github.sha }}
 
       - name: Deploy To Server
         uses: appleboy/ssh-action@master
@@ -40,7 +44,7 @@ jobs:
           port: ${{ secrets.PORT }}
           command_timeout: 60s
           script: |
-            docker pull registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
+            docker pull $MY_VAR:${{ github.sha }}
             docker rm -f chartgpt-ui-docker
-            docker run --name chartgpt-ui-docker -it -d -p 8080:8080 registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
+            docker run --name $DOCKER_CONTAINER_NAME -it -d -p 8080:8080 $MY_VAR:${{ github.sha }}
             exit
