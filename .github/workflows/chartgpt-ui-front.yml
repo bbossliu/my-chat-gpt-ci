@@ -45,6 +45,6 @@ jobs:
           command_timeout: 60s
           script: |
             docker pull $MY_VAR:${{ github.sha }}
-            docker rm -f chartgpt-ui-docker
+            docker rm -f $DOCKER_CONTAINER_NAME
             docker run --name $DOCKER_CONTAINER_NAME -it -d -p 8080:8080 $MY_VAR:${{ github.sha }}
             exit
