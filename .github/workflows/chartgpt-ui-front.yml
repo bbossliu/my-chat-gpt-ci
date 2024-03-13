@@ -2,6 +2,7 @@ name: chartgpt-ui-docker CI
 
 # 在master分支发生push事件时触发。
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
@@ -35,4 +36,3 @@ jobs:
           echo "image_id=$(docker images --filter=reference='chartgpt-ui-docker:${{ github.sha }}' --format='{{.ID}}')" >> $GITHUB_OUTPUT
           docker tag ${{ steps.build_image.outputs.image_id }} registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
           docker push registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
-
