@@ -16,13 +16,12 @@ on:
 #    shell: bash
 #    working-directory: chartgpt-ui-docker
 
-env:
-  MY_VAR: registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web
-  DOCKER_CONTAINER_NAME: chartgpt-ui-docker
-
 jobs:
   build: # 自定义名称
     runs-on: ubuntu-latest # 运行在虚拟机环境ubuntu-latest
+    env:
+      MY_VAR: registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web
+      DOCKER_CONTAINER_NAME: chartgpt-ui-docker
     steps:
       - uses: actions/checkout@v2
 
