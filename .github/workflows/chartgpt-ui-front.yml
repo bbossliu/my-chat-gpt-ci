@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag chartgpt-ui-docker:${{ github.sha }}
+        run: docker build . --file Dockerfile --tag registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
 
       - name: Log in to AliYun
         run: docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-beijing.aliyuncs.com # 登录阿里云镜像仓库
@@ -32,7 +32,4 @@ jobs:
         id: build_image
         #        run: docker push myapp:${{ github.sha }}
         run: |
-          echo "image_id=$(docker images --filter=reference='chartgpt-ui-docker:${{ github.sha }}' --format='{{.ID}}')" >> $GITHUB_OUTPUT
-          echo ${{ steps.build_image.outputs.image_id }}
-          docker tag ${{ steps.build_image.outputs.image_id }} registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
           docker push registry.cn-beijing.aliyuncs.com/f-chatgpt-web/chatgpt-web:${{ github.sha }}
